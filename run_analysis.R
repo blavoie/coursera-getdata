@@ -6,6 +6,7 @@ if(!file.exists("./data")) {
   dir.create("./data")
   download.file(file.url, destfile="data.zip", method="curl")  
   unzip(zipfile = "./data.zip", exdir = "./data")
+  file.remove("./data.zip")
 }
 
 # Read in data and metadata
