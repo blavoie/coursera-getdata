@@ -1,3 +1,6 @@
 getdata-projectfiles-UCI HAR Dataset.zip
 data
 .Rproj.user
+.RData
+.Rhistory
+README.html
