@@ -30,9 +30,9 @@ activities <- read.table("./data/UCI HAR Dataset/activity_labels.txt")
 
 # Merges the training and the test sets to create one data set (#1)
 
-merged.x    <- rbind(train.x, test.x)
-merged.y    <- rbind(train.y, test.y)
-merged.subj <- rbind(train.subj, test.subj)
+all.x    <- rbind(train.x, test.x)
+all.y    <- rbind(train.y, test.y)
+all.subj <- rbind(train.subj, test.subj)
 
 # Remove orignal datasets
 
@@ -41,18 +41,24 @@ rm(train.x, test.x, train.y, test.y, train.subj, test.subj)
 # Appropriately labels the data set with descriptive variable names. (#4)
 # Also delete features frame once used to rename variables.
 
-names(merged.x)    <- as.character(features[, 2])
-names(merged.y)    <- "activity.id"
-names(merged.subj) <- "suject.id"
-names(activities)  <-  c("activity.id", "activity.name")
+names(all.x)      <- as.character(features[, 2])
+names(all.y)      <- "activity.id"
+names(all.subj)   <- "subject.id"
+names(activities) <-  c("activity.id", "activity.name")
 
 rm(features)
 
 #  Extracts only the measurements on the mean and standard deviation for each measurement (#2)
 
+all.x <- all.x[, c(grep("-mean|-std",colnames(all.x)))]
 
+# Create a merged, final data frame.
+# Uses descriptive activity names to name the activities in the data set (#3)
+# Then cleanup.
 
+merged <- cbind(all.subj, all.y, all.x)
+merged <- merge(x=merged, y=activities, by = "activity.id")
 
-
-
-
+rm (all.x)
+rm (all.y)
+rm (all.subj)
