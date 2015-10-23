@@ -20,7 +20,7 @@ For a detailled rundown, just read the explicit script comments.
 
 ## Data Information
 
-Data definitions are in [CookBook.md](CodeBook.md) file.
+Data definitions are in [CodeBook.md](CodeBook.md) file.
 
 ## Installing dependencies
 
