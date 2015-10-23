@@ -58,7 +58,21 @@ all.x <- all.x[, c(grep("-mean|-std",colnames(all.x)))]
 
 merged <- cbind(all.subj, all.y, all.x)
 merged <- merge(x=merged, y=activities, by = "activity.id")
+merged <- subset(merged, select = - c(activity.id) ) # This removes activity.id column
 
 rm (all.x)
 rm (all.y)
 rm (all.subj)
+rm (activities)
+
+# Creates a second, independent tidy data set with the average of each variable for each 
+# activity and each subject. (#5)
+
+melted   <- melt(merged, id.var = c("subject.id", "activity.name"))
+averaged <- dcast(melted , subject.id + activity.name ~ variable, mean)
+
+rm (melted)
+
+# Write out!
+
+write.csv(averaged, file = "tidy.data.txt")
